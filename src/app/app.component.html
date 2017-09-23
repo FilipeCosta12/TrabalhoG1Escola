@@ -2,28 +2,10 @@
     <h1>Gerenciador de Heróis (Vingadores)</h1>
     <div class="row">
         <div class="col">
-            <h2>Lista de heróis</h2>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Herói</th>
-                        <th>Pessoa</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let vingador of vingadores">
-                        <td>{{vingador.id}}</td>
-                        <td>{{vingador.nome}}</td>
-                        <td>{{vingador.pessoa}}</td>
-                        <td>
-                            <button class="btn btn-sm btn-danger" (click)="excluir(vingador.id)">Excluir</button>
-                            <button class="btn btn-sm btn-primary" (click)="editar(vingador.id)">Editar</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <app-lista-de-herois [lista]="vingadores" 
+                (onExcluir)="excluir($event)"
+                (onEditar)="editar($event)">
+            </app-lista-de-herois>
         </div>
         <div class="col">
             <h2>Cadastrar herói</h2>
