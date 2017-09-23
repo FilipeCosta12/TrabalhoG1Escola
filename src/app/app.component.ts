@@ -8,13 +8,12 @@ import '../assets/css/style.css';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-    title: string;
     vingadores: Array<Vingador>;
-    selecionado: Vingador;
     novo: Vingador = new Vingador(0, '', '');
+    ultimo_id = 5;
+    editando = false;
 
     constructor() {
-        this.title = 'Vingadores';
         this.vingadores = [
             new Vingador(1, 'Capitão América', 'Steve Rogers'),
             new Vingador(2, 'Viúva Negra', 'Natasha Romanoff'),
@@ -27,13 +26,41 @@ export class AppComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    heroiSelecionado(vingador: Vingador): void {
-        this.selecionado = vingador;
+    cadastrar(): void {
+        if (!this.editando) {
+            const novoId: number = ++this.ultimo_id;
+            this.vingadores.push(new Vingador(novoId, this.novo.nome, this.novo.pessoa));
+            this.novo = new Vingador(0, '', '');
+        } else {
+            this.novo = new Vingador(0, '', '');
+            this.editando = false;
+        }
     }
 
-    cadastrar(): void {
-        const novoId: number = this.vingadores.length + 1;
-        this.vingadores.push(new Vingador(novoId, this.novo.nome, this.novo.pessoa));
-        this.novo = new Vingador(0, '', '');
+    encontrar(id: number): number {
+        let indice = -1;
+        for (let i = 0; i < this.vingadores.length; i++) {
+            if (this.vingadores[i].id == id) {
+                indice = i;
+                break;
+            }
+        }
+        return indice;
+    }
+
+    excluir(id: number): void {
+        const indice = this.encontrar(id);
+        if (indice !== -1) {
+            this.vingadores.splice(indice, 1);
+            this.novo = new Vingador(0, '', '');
+        }
+    }
+
+    editar(id: number): void {
+        const indice = this.encontrar(id);
+        if (indice !== -1) {
+            this.novo = this.vingadores[indice];
+            this.editando = true;
+        }
     }
 }
