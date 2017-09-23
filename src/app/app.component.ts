@@ -26,10 +26,10 @@ export class AppComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    cadastrar(): void {
+    cadastrar(ving: Vingador): void {
         if (!this.editando) {
             const novoId: number = ++this.ultimo_id;
-            this.vingadores.push(new Vingador(novoId, this.novo.nome, this.novo.pessoa));
+            this.vingadores.push(new Vingador(novoId, ving.nome, ving.pessoa));
             this.novo = new Vingador(0, '', '');
         } else {
             this.novo = new Vingador(0, '', '');
