@@ -1,24 +1,65 @@
 <div class="container">
-    <h1>Gerenciador de Heróis (Vingadores)</h1>
+    <h1>Escola Municipal Cruzeiro do Sul</h1>
+    <h2>Gerenciador de Notas e Frequências dos Alunos</h2>
     <div class="row">
         <div class="col">
-            <app-lista-de-herois [lista]="vingadores" 
-                (onExcluir)="excluir($event)"
-                (onEditar)="editar($event)">
-            </app-lista-de-herois>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Turma</th>
+                        <th>Aluno</th>
+                        <th>Frequência</th>
+                        <th>Média</th>
+                        <th>Situação</th>
+                        <th>Registrar notas e freq.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let aluno of alunos" [class.table-danger]="aluno.situacao() == 'REPROVADO' || aluno.situacao() == 'REPROVADO POR FALTA'"
+                        [class.table-success]="aluno.situacao() == 'APROVADO'">
+                        <td>{{aluno.turma}}</td>
+                        <td>{{aluno.nome}}</td>
+                        <td>{{aluno.frequencia}}</td>
+                        <td>{{aluno.media()}}</td>
+                        <td>{{aluno.situacao() || 'N/I'}}</td>
+                        <td>
+                            <button class="btn btn-primary" (click)="registrar(aluno)">Registrar</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">Média da Turma</td>
+                        <td colspan="2">{{media_turma || 'N/I'}}</td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
         <div class="col">
-            <h2>Cadastrar herói</h2>
-            <form #formCadastro="ngForm" (ngSubmit)="cadastrar()">
+            <h2>Registrar notas e frequência</h2>
+            <form #registro="ngForm" (submit)="salvar()">
                 <div class="form-group">
-                    <label for="nome">Nome:</label>
-                    <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="novo.nome" required>
+                    <label>Nota 1</label>
+                    <input type="number" class="form-control" name="nota1" [(ngModel)]="aluno_atual.nota1">
                 </div>
                 <div class="form-group">
-                    <label for="pessoa">Pessoa:</label>
-                    <input type="text" class="form-control" id="pessoa" name="pessoa" [(ngModel)]="novo.pessoa" required>
+                    <label>Nota 2</label>
+                    <input type="number" class="form-control" name="nota2" [(ngModel)]="aluno_atual.nota2">
                 </div>
-                <button type="submit" class="btn btn-primary" [disabled]="!formCadastro.valid">Salvar</button>
+                <div class="form-group">
+                    <label>Nota 3</label>
+                    <input type="number" class="form-control" name="nota3" [(ngModel)]="aluno_atual.nota3">
+                </div>
+                <div class="form-group">
+                    <label>Nota 4</label>
+                    <input type="number" class="form-control" name="nota4" [(ngModel)]="aluno_atual.nota4">
+                </div>
+                <div class="form-group">
+                    <label>Frequência</label>
+                    <input type="number" class="form-control" name="frequencia" [(ngModel)]="aluno_atual.frequencia">
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="!registro.valid">Salvar</button>
+                <button type="button" class="btn btn-secondary" (click)="limpar()">Limpar</button>
             </form>
         </div>
         <br>

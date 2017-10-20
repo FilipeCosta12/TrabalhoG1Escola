@@ -4,8 +4,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {AppComponent} from './app.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { HeroiComponent } from './heroi/heroi.component';
-import { ListaDeHeroisComponent } from './lista-de-herois/lista-de-herois.component';
 
 @NgModule({
     imports: [
@@ -16,9 +14,7 @@ import { ListaDeHeroisComponent } from './lista-de-herois/lista-de-herois.compon
         HttpModule
     ],
     declarations: [
-        AppComponent,
-        HeroiComponent,
-        ListaDeHeroisComponent,
+        AppComponent
     ],
     providers: [
     ],
