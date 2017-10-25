@@ -1,5 +1,7 @@
 export class Aluno {
-    constructor(public nome: string,
+    constructor(
+        public id: number,
+        public nome: string,
         public turma: number,
         public nota1: number = null,
         public nota2: number = null,
